@@ -1,0 +1,91 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: ["**"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: the vendored spec must match the codegen manifest
+        run: |
+          expected=$(python3 -c "import json;print(json.load(open('.codegen.json'))['spec']['raw_sha256'])")
+          actual=$(sha256sum openapi/developer-v1.yaml | cut -d' ' -f1)
+          if [ "$expected" != "$actual" ]; then
+            echo "the vendored spec does not match .codegen.json"
+            exit 1
+          fi
+      - name: generated files must not be hand-edited
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, sys
+          manifest = json.load(open('.codegen.json'))
+          failures = 0
+          for path, expected in manifest['files'].items():
+              try:
+                  actual = hashlib.sha256(open(path, 'rb').read()).hexdigest()
+              except FileNotFoundError:
+                  print(f'missing generated file: {path}')
+                  failures += 1
+                  continue
+              if actual != expected:
+                  print(f'generated file was edited by hand: {path}')
+                  failures += 1
+          if failures:
+              sys.exit(1)
+          print(f"contract ok: {len(manifest['files'])} generated files")
+          PY
+
+  test:
+    needs: contract
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ["8.3", "8.4", "8.5"]
+        dependencies: [highest, lowest]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+      - run: composer validate --strict
+      - name: install dependencies
+        run: |
+          if [ "${{ matrix.dependencies }}" = "lowest" ]; then
+            composer update --prefer-lowest --prefer-stable --no-interaction --no-progress
+          else
+            composer install --no-interaction --no-progress
+          fi
+      - run: vendor/bin/phpunit
+
+  install-smoke:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          path: package
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+      - name: require the package from a clean project
+        run: |
+          mkdir -p /tmp/consumer && cd /tmp/consumer
+          composer init --no-interaction --name=smoke/consumer --stability=dev
+          composer config repositories.package path "$GITHUB_WORKSPACE/package"
+          composer require epostix/sdk-php:@dev --no-interaction --no-progress
+          cp "$GITHUB_WORKSPACE/package/.github/smoke.php" .
+          php smoke.php

@@ -1,0 +1,99 @@
+name: release
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+      - run: composer validate --strict
+      - name: composer.json must not pin a version
+        run: |
+          if php -r 'exit(isset(json_decode(file_get_contents("composer.json"), true)["version"]) ? 0 : 1);'; then
+            echo "composer.json carries a version key; Composer must derive it from the tag"
+            exit 1
+          fi
+      - run: composer install --no-interaction --no-progress
+      - run: vendor/bin/phpunit
+      - name: the tag must be a signed annotated tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${{ github.event.release.tag_name }}"
+          ref=$(gh api "repos/${{ github.repository }}/git/ref/tags/$tag")
+          kind=$(echo "$ref" | jq -r .object.type)
+          sha=$(echo "$ref" | jq -r .object.sha)
+
+          if [ "$kind" != "tag" ]; then
+            echo "$tag is a lightweight tag; a release must use a signed annotated tag"
+            exit 1
+          fi
+
+          object=$(gh api "repos/${{ github.repository }}/git/tags/$sha")
+          verified=$(echo "$object" | jq -r .verification.verified)
+          reason=$(echo "$object" | jq -r .verification.reason)
+
+          if [ "$verified" != "true" ]; then
+            echo "$tag is not a verified signed tag: $reason"
+            exit 1
+          fi
+
+          echo "$tag is signed and verified by GitHub ($reason)"
+
+  attest:
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: build the source archive Packagist will serve
+        run: |
+          mkdir -p /tmp/dist
+          git archive --format=tar.gz --prefix="epostix-sdk-php-${{ github.event.release.tag_name }}/" \
+            -o "/tmp/dist/epostix-sdk-php-${{ github.event.release.tag_name }}.tar.gz" \
+            "${{ github.event.release.tag_name }}"
+      - uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: /tmp/dist/*.tar.gz
+
+  packagist:
+    needs: attest
+    runs-on: ubuntu-latest
+    steps:
+      - name: wait for packagist to pick up the tag
+        run: |
+          tag="${{ github.event.release.tag_name }}"
+          version="${tag#v}"
+
+          for attempt in $(seq 1 12); do
+            body=$(curl -sS "https://repo.packagist.org/p2/epostix/sdk-php.json" || true)
+
+            if echo "$body" | jq -e --arg v "$version" '.packages["epostix/sdk-php"][]? | select(.version_normalized | startswith($v))' >/dev/null 2>&1; then
+              echo "packagist is serving $version"
+              exit 0
+            fi
+
+            echo "attempt $attempt: not yet visible, waiting"
+            sleep 15
+          done
+
+          echo "packagist has not published $version after 3 minutes."
+          echo "check that the Packagist GitHub App is installed on the epostix org."
+          exit 1

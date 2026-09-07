@@ -1,0 +1,35 @@
+{
+  "name": "epostix/sdk-php",
+  "description": "PHP client for the Epostix Developer API",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.3",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.1",
+    "psr/http-message": "^1.1 || ^2.0",
+    "php-http/discovery": "^1.19"
+  },
+  "require-dev": {
+    "nyholm/psr7": "^1.8.2",
+    "phpunit/phpunit": "^11.5 || ^12.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Epostix\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Epostix\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    },
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
