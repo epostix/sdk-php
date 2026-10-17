@@ -16,6 +16,7 @@ final readonly class WebhookCreateResponse
         public string $secret,
         public string $url,
         public ?string $description = null,
+        public ?array $domain_ids = null,
         public ?\DateTimeImmutable $updated_at = null,
         public array $unknownFields = [],
         public ?\Epostix\ResponseMetadata $responseMetadata = null,
@@ -35,6 +36,10 @@ final readonly class WebhookCreateResponse
             $wire['description'] = $this->description;
         }
 
+        if ($this->domain_ids !== null) {
+            $wire['domain_ids'] = array_values($this->domain_ids);
+        }
+
         if ($this->updated_at !== null) {
             $wire['updated_at'] = \Epostix\Wire::encodeDateTime($this->updated_at);
         }
@@ -52,6 +57,7 @@ final readonly class WebhookCreateResponse
             'secret',
             'url',
             'description',
+            'domain_ids',
             'updated_at',
         ];
         $unknown = [];
@@ -70,6 +76,7 @@ final readonly class WebhookCreateResponse
             secret: \Epostix\Wire::asString(($wire['secret'] ?? '')),
             url: \Epostix\Wire::asString(($wire['url'] ?? '')),
             description: array_key_exists('description', $wire) && $wire['description'] !== null ? \Epostix\Wire::asString($wire['description']) : null,
+            domain_ids: array_key_exists('domain_ids', $wire) && $wire['domain_ids'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList($wire['domain_ids'])) : null,
             updated_at: array_key_exists('updated_at', $wire) && $wire['updated_at'] !== null ? \Epostix\Wire::decodeDateTime($wire['updated_at']) : null,
             unknownFields: $unknown,
             responseMetadata: $responseMetadata,

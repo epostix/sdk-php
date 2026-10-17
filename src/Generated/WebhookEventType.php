@@ -16,7 +16,23 @@ final class WebhookEventType
     public const EMAIL_COMPLAINED = 'email.complained';
     public const EMAIL_FAILED = 'email.failed';
     public const EMAIL_DELAYED = 'email.delayed';
+    public const EMAIL_CANCELLED = 'email.cancelled';
     public const EMAIL_RECEIVED = 'email.received';
+    public const EMAIL_RETURN_PATH_REPLY = 'email.return_path_reply';
+    public const DOMAIN_VERIFIED = 'domain.verified';
+    public const DOMAIN_VERIFICATION_FAILED = 'domain.verification_failed';
+    public const TRACKING_DOMAIN_VERIFIED = 'tracking_domain.verified';
+    public const TRACKING_DOMAIN_VERIFICATION_FAILED = 'tracking_domain.verification_failed';
+    public const CAMPAIGN_STARTED = 'campaign.started';
+    public const CAMPAIGN_PAUSED = 'campaign.paused';
+    public const CAMPAIGN_RESUMED = 'campaign.resumed';
+    public const CAMPAIGN_COMPLETED = 'campaign.completed';
+    public const CAMPAIGN_CANCELLED = 'campaign.cancelled';
+    public const CAMPAIGN_AUTO_PAUSED = 'campaign.auto_paused';
+    public const CONTACT_STATUS_CHANGED = 'contact.status_changed';
+    public const CONTACT_IMPORT_COMPLETED = 'contact.import_completed';
+    public const SUPPRESSION_CREATED = 'suppression.created';
+    public const SUPPRESSION_REMOVED = 'suppression.removed';
 
     public const VALUES = [
         'email.sent',
@@ -27,7 +43,23 @@ final class WebhookEventType
         'email.complained',
         'email.failed',
         'email.delayed',
+        'email.cancelled',
         'email.received',
+        'email.return_path_reply',
+        'domain.verified',
+        'domain.verification_failed',
+        'tracking_domain.verified',
+        'tracking_domain.verification_failed',
+        'campaign.started',
+        'campaign.paused',
+        'campaign.resumed',
+        'campaign.completed',
+        'campaign.cancelled',
+        'campaign.auto_paused',
+        'contact.status_changed',
+        'contact.import_completed',
+        'suppression.created',
+        'suppression.removed',
     ];
 
     public static function isKnown(string $value): bool

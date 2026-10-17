@@ -11,6 +11,7 @@ final readonly class WebhookUpdateRequest
     public function __construct(
         public ?bool $active = null,
         public ?string $description = null,
+        public ?array $domain_ids = null,
         public ?array $events = null,
         public ?string $url = null,
     ) {}
@@ -25,6 +26,10 @@ final readonly class WebhookUpdateRequest
 
         if ($this->description !== null) {
             $wire['description'] = $this->description;
+        }
+
+        if ($this->domain_ids !== null) {
+            $wire['domain_ids'] = array_values($this->domain_ids);
         }
 
         if ($this->events !== null) {
@@ -43,6 +48,7 @@ final readonly class WebhookUpdateRequest
         return new self(
             active: array_key_exists('active', $wire) && $wire['active'] !== null ? \Epostix\Wire::asBool($wire['active']) : null,
             description: array_key_exists('description', $wire) && $wire['description'] !== null ? \Epostix\Wire::asString($wire['description']) : null,
+            domain_ids: array_key_exists('domain_ids', $wire) && $wire['domain_ids'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList($wire['domain_ids'])) : null,
             events: array_key_exists('events', $wire) && $wire['events'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList($wire['events'])) : null,
             url: array_key_exists('url', $wire) && $wire['url'] !== null ? \Epostix\Wire::asString($wire['url']) : null,
         );

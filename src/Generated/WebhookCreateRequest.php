@@ -12,6 +12,7 @@ final readonly class WebhookCreateRequest
         public array $events,
         public string $url,
         public ?string $description = null,
+        public ?array $domain_ids = null,
         public ?string $secret = null,
     ) {}
 
@@ -23,6 +24,10 @@ final readonly class WebhookCreateRequest
         $wire['url'] = $this->url;
         if ($this->description !== null) {
             $wire['description'] = $this->description;
+        }
+
+        if ($this->domain_ids !== null) {
+            $wire['domain_ids'] = array_values($this->domain_ids);
         }
 
         if ($this->secret !== null) {
@@ -38,6 +43,7 @@ final readonly class WebhookCreateRequest
             events: array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList(($wire['events'] ?? []))),
             url: \Epostix\Wire::asString(($wire['url'] ?? '')),
             description: array_key_exists('description', $wire) && $wire['description'] !== null ? \Epostix\Wire::asString($wire['description']) : null,
+            domain_ids: array_key_exists('domain_ids', $wire) && $wire['domain_ids'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList($wire['domain_ids'])) : null,
             secret: array_key_exists('secret', $wire) && $wire['secret'] !== null ? \Epostix\Wire::asString($wire['secret']) : null,
         );
     }
