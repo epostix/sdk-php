@@ -17,6 +17,7 @@ final readonly class Webhook
         public ?string $description = null,
         public ?\Epostix\Optional $disabled_at = null,
         public ?\Epostix\Optional $disabled_reason = null,
+        public ?array $domain_ids = null,
         public ?int $failure_count = null,
         public ?\DateTimeImmutable $updated_at = null,
         public array $unknownFields = [],
@@ -44,6 +45,10 @@ final readonly class Webhook
             $wire['disabled_reason'] = $this->disabled_reason->isNull() ? null : $this->disabled_reason->value();
         }
 
+        if ($this->domain_ids !== null) {
+            $wire['domain_ids'] = array_values($this->domain_ids);
+        }
+
         if ($this->failure_count !== null) {
             $wire['failure_count'] = $this->failure_count;
         }
@@ -66,6 +71,7 @@ final readonly class Webhook
             'description',
             'disabled_at',
             'disabled_reason',
+            'domain_ids',
             'failure_count',
             'updated_at',
         ];
@@ -86,6 +92,7 @@ final readonly class Webhook
             description: array_key_exists('description', $wire) && $wire['description'] !== null ? \Epostix\Wire::asString($wire['description']) : null,
             disabled_at: array_key_exists('disabled_at', $wire) ? ($wire['disabled_at'] === null ? \Epostix\Optional::null() : \Epostix\Optional::of(\Epostix\Wire::decodeDateTime($wire['disabled_at']))) : null,
             disabled_reason: array_key_exists('disabled_reason', $wire) ? ($wire['disabled_reason'] === null ? \Epostix\Optional::null() : \Epostix\Optional::of(\Epostix\Wire::asString($wire['disabled_reason']))) : null,
+            domain_ids: array_key_exists('domain_ids', $wire) && $wire['domain_ids'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asList($wire['domain_ids'])) : null,
             failure_count: array_key_exists('failure_count', $wire) && $wire['failure_count'] !== null ? \Epostix\Wire::asInt($wire['failure_count']) : null,
             updated_at: array_key_exists('updated_at', $wire) && $wire['updated_at'] !== null ? \Epostix\Wire::decodeDateTime($wire['updated_at']) : null,
             unknownFields: $unknown,

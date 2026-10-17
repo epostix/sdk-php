@@ -12,12 +12,14 @@ final class DnsRecordKind
     public const DKIM = 'dkim';
     public const DMARC = 'dmarc';
     public const MX_INBOUND = 'mx_inbound';
+    public const OPENPGPKEY = 'openpgpkey';
 
     public const VALUES = [
         'spf',
         'dkim',
         'dmarc',
         'mx_inbound',
+        'openpgpkey',
     ];
 
     public static function isKnown(string $value): bool

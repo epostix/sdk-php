@@ -15,7 +15,7 @@ final readonly class APIKeyUsageLog
         public string $path,
         public int $status_code,
         public ?\Epostix\Optional $ip_address = null,
-        public ?\Epostix\Optional $scope_used = null,
+        public ?string $scope_used = null,
         public array $unknownFields = [],
         public ?\Epostix\ResponseMetadata $responseMetadata = null,
     ) {}
@@ -34,7 +34,7 @@ final readonly class APIKeyUsageLog
         }
 
         if ($this->scope_used !== null) {
-            $wire['scope_used'] = $this->scope_used->isNull() ? null : $this->scope_used->value();
+            $wire['scope_used'] = $this->scope_used;
         }
 
         return $wire;
@@ -66,7 +66,7 @@ final readonly class APIKeyUsageLog
             path: \Epostix\Wire::asString(($wire['path'] ?? '')),
             status_code: \Epostix\Wire::asInt(($wire['status_code'] ?? 0)),
             ip_address: array_key_exists('ip_address', $wire) ? ($wire['ip_address'] === null ? \Epostix\Optional::null() : \Epostix\Optional::of(\Epostix\Wire::asString($wire['ip_address']))) : null,
-            scope_used: array_key_exists('scope_used', $wire) ? ($wire['scope_used'] === null ? \Epostix\Optional::null() : \Epostix\Optional::of(\Epostix\Wire::asString($wire['scope_used']))) : null,
+            scope_used: array_key_exists('scope_used', $wire) && $wire['scope_used'] !== null ? \Epostix\Wire::asString($wire['scope_used']) : null,
             unknownFields: $unknown,
             responseMetadata: $responseMetadata,
         );

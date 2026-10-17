@@ -13,6 +13,7 @@ final class SuppressionDetailReason
     public const COMPLAINT = 'complaint';
     public const MANUAL = 'manual';
     public const UNSUBSCRIBE = 'unsubscribe';
+    public const CLEANED = 'cleaned';
 
     public const VALUES = [
         'hard_bounce',
@@ -20,6 +21,7 @@ final class SuppressionDetailReason
         'complaint',
         'manual',
         'unsubscribe',
+        'cleaned',
     ];
 
     public static function isKnown(string $value): bool
