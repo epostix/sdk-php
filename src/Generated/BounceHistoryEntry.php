@@ -9,10 +9,17 @@ namespace Epostix\Generated;
 final readonly class BounceHistoryEntry
 {
     public function __construct(
-        public ?string $bounce_subtype = null,
-        public ?string $bounce_type = null,
-        public ?\DateTimeImmutable $created_at = null,
+        public \DateTimeImmutable $created_at,
+        public string $kind,
+        public ?string $enhanced_status_code = null,
+        public ?string $fault = null,
+        public ?string $feedback_type = null,
+        public ?bool $permanent = null,
+        public ?string $provider = null,
+        public ?string $reason = null,
+        public ?string $response = null,
         public ?int $smtp_code = null,
+        public ?string $source = null,
         public array $unknownFields = [],
         public ?\Epostix\ResponseMetadata $responseMetadata = null,
     ) {}
@@ -21,20 +28,42 @@ final readonly class BounceHistoryEntry
     {
         $wire = [];
 
-        if ($this->bounce_subtype !== null) {
-            $wire['bounce_subtype'] = $this->bounce_subtype;
+        $wire['created_at'] = \Epostix\Wire::encodeDateTime($this->created_at);
+        $wire['kind'] = $this->kind;
+        if ($this->enhanced_status_code !== null) {
+            $wire['enhanced_status_code'] = $this->enhanced_status_code;
         }
 
-        if ($this->bounce_type !== null) {
-            $wire['bounce_type'] = $this->bounce_type;
+        if ($this->fault !== null) {
+            $wire['fault'] = $this->fault;
         }
 
-        if ($this->created_at !== null) {
-            $wire['created_at'] = \Epostix\Wire::encodeDateTime($this->created_at);
+        if ($this->feedback_type !== null) {
+            $wire['feedback_type'] = $this->feedback_type;
+        }
+
+        if ($this->permanent !== null) {
+            $wire['permanent'] = $this->permanent;
+        }
+
+        if ($this->provider !== null) {
+            $wire['provider'] = $this->provider;
+        }
+
+        if ($this->reason !== null) {
+            $wire['reason'] = $this->reason;
+        }
+
+        if ($this->response !== null) {
+            $wire['response'] = $this->response;
         }
 
         if ($this->smtp_code !== null) {
             $wire['smtp_code'] = $this->smtp_code;
+        }
+
+        if ($this->source !== null) {
+            $wire['source'] = $this->source;
         }
 
         return $wire;
@@ -43,10 +72,17 @@ final readonly class BounceHistoryEntry
     public static function fromWire(array $wire, ?\Epostix\ResponseMetadata $responseMetadata = null): self
     {
         $known = [
-            'bounce_subtype',
-            'bounce_type',
             'created_at',
+            'kind',
+            'enhanced_status_code',
+            'fault',
+            'feedback_type',
+            'permanent',
+            'provider',
+            'reason',
+            'response',
             'smtp_code',
+            'source',
         ];
         $unknown = [];
 
@@ -57,10 +93,17 @@ final readonly class BounceHistoryEntry
         }
 
         return new self(
-            bounce_subtype: array_key_exists('bounce_subtype', $wire) && $wire['bounce_subtype'] !== null ? \Epostix\Wire::asString($wire['bounce_subtype']) : null,
-            bounce_type: array_key_exists('bounce_type', $wire) && $wire['bounce_type'] !== null ? \Epostix\Wire::asString($wire['bounce_type']) : null,
-            created_at: array_key_exists('created_at', $wire) && $wire['created_at'] !== null ? \Epostix\Wire::decodeDateTime($wire['created_at']) : null,
+            created_at: \Epostix\Wire::decodeDateTime(($wire['created_at'] ?? '')),
+            kind: \Epostix\Wire::asString(($wire['kind'] ?? '')),
+            enhanced_status_code: array_key_exists('enhanced_status_code', $wire) && $wire['enhanced_status_code'] !== null ? \Epostix\Wire::asString($wire['enhanced_status_code']) : null,
+            fault: array_key_exists('fault', $wire) && $wire['fault'] !== null ? \Epostix\Wire::asString($wire['fault']) : null,
+            feedback_type: array_key_exists('feedback_type', $wire) && $wire['feedback_type'] !== null ? \Epostix\Wire::asString($wire['feedback_type']) : null,
+            permanent: array_key_exists('permanent', $wire) && $wire['permanent'] !== null ? \Epostix\Wire::asBool($wire['permanent']) : null,
+            provider: array_key_exists('provider', $wire) && $wire['provider'] !== null ? \Epostix\Wire::asString($wire['provider']) : null,
+            reason: array_key_exists('reason', $wire) && $wire['reason'] !== null ? \Epostix\Wire::asString($wire['reason']) : null,
+            response: array_key_exists('response', $wire) && $wire['response'] !== null ? \Epostix\Wire::asString($wire['response']) : null,
             smtp_code: array_key_exists('smtp_code', $wire) && $wire['smtp_code'] !== null ? \Epostix\Wire::asInt($wire['smtp_code']) : null,
+            source: array_key_exists('source', $wire) && $wire['source'] !== null ? \Epostix\Wire::asString($wire['source']) : null,
             unknownFields: $unknown,
             responseMetadata: $responseMetadata,
         );
