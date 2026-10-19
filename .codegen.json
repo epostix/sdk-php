@@ -1,10 +1,10 @@
 {
   "generator": "epostix-codegen",
   "spec": {
-    "raw_sha256": "d346966c5567d37d13224318d2128bd44e0b2db7d71c683c320a25e9f4eaf767",
-    "contract_sha256": "7ec82058bbdc739b30ee0c1cf534c27cb02c2c286def10b2f9ff1d93a735a512"
+    "raw_sha256": "54379af3745df1d6ff6e25c0a00105eefcc7887a70aaf39db0998e3ffce4a8a7",
+    "contract_sha256": "8bf52ce46c813c19a334353438be0aa57e581a6b4a81fa6c03ccb6c8c36d47e0"
   },
-  "ir_sha256": "9fe686064b38762e15520df5526bd774659e57114f8fe6dc816fa725da7f59c7",
+  "ir_sha256": "b6ce8bbe98f47fad49e3c929de5d8094da77a2144ec228074cbb5dc87fcb1193",
   "files": {
     "src/Generated/AnalyticsBucket.php": "43406de4b4941aff348a73da2cace46a5b544f2fdb65376fc3f6f88d682453b5",
     "src/Generated/AnalyticsCounts.php": "3bc097f2f3b24d36650129563511d087e8631cd6ec27430c7073345b6e168ab0",
@@ -69,7 +69,7 @@
     "src/Generated/DomainUpdate.php": "9fa8a37ecf6df27a1b15ae887d14e51d31e2c278a5bf86e2b03fb215abb903b1",
     "src/Generated/DomainUpdateClickTrackingObject.php": "39109678c771cc472e6fc59cbeb43b4713a9884f0b98bceb615f30501c7505a9",
     "src/Generated/DomainUpdateOpenTrackingObject.php": "72bf56d2dcb144001d2aeb2adafb3e502914104635d7b713ae4ae47e640025a8",
-    "src/Generated/Email.php": "59655a42775c858bf1a018e583e964a599c1be1a81b8d2ec9f01047583b2677e",
+    "src/Generated/Email.php": "c66b463e79d2853ccebfba51007cabdc2cc86f1fa951781a7b4a602407bcf0e0",
     "src/Generated/EmailBatchError.php": "21249158b1280117127f15140cb545eeb69cd0d21790d3f8dd08bc0ffdb73742",
     "src/Generated/EmailBatchRequest.php": "8b1238adfdcab670bd31deda7e8adb7fb64bf9e42f63a006e8468c33292be342",
     "src/Generated/EmailBatchRequestValidation.php": "18dadd7762ce49e3395ddf288471b5d20bd9dc758b0915df63c3743d77b94d03",
@@ -78,6 +78,10 @@
     "src/Generated/EmailBatchResultStatus.php": "23fd7753af7dda22106552fe8dbed9cce243c5f3a15c1a6090960d65d3f25f59",
     "src/Generated/EmailCreate.php": "321dd34893ceaf13961d5a46b94bf60acc43fe49984fd9f6c7e40d3d6e1a677e",
     "src/Generated/EmailEvent.php": "b9ceafd7e1a8171841a9d366d0db1ea7f2c3345544d3c149e3524986cfacba91",
+    "src/Generated/EmailFailedEventData.php": "158d04aa90333152ecd5579be1e80301cfb9e2ba3ec2fefd8eac6cdd19442220",
+    "src/Generated/EmailFailure.php": "ef32192eb64192872750bdea230a0e1ca188e952308fa0c719d4642164c62b22",
+    "src/Generated/EmailFailureFault.php": "7f66ed5a747f54cb41da3bdb43124d410c04eeb009a4fd4849da4dd497be63c7",
+    "src/Generated/EmailFailureReason.php": "02e68a7f40808bb1c8df9ed2a7eb316cc8e2457a9950654a8e482432e1864933",
     "src/Generated/EmailListResponse.php": "04b150f8aa3bcd0008f60e86e0b96d174228498a1f51ed3066663af81288198a",
     "src/Generated/EmailMode.php": "fe2300f9d1dc8ca5c23a3f10952de6bbe2878d0f7ea8b8a4c9d72187c7c261d8",
     "src/Generated/EmailStatus.php": "578779ebf329dc09bea0edc6b0eff57f1e8cef818d58e38b329a98c001d4795b",
