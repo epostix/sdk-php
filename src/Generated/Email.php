@@ -20,6 +20,7 @@ final readonly class Email
         public ?int $delivery_time_ms = null,
         public ?string $error_message = null,
         public ?array $events = null,
+        public ?\Epostix\Generated\EmailFailure $failure = null,
         public ?string $from = null,
         public ?array $headers = null,
         public ?string $html = null,
@@ -75,6 +76,10 @@ final readonly class Email
 
         if ($this->events !== null) {
             $wire['events'] = array_map(static fn ($item) => \Epostix\Wire::object($item->toWire()), array_values($this->events));
+        }
+
+        if ($this->failure !== null) {
+            $wire['failure'] = \Epostix\Wire::object($this->failure->toWire());
         }
 
         if ($this->from !== null) {
@@ -162,6 +167,7 @@ final readonly class Email
             'delivery_time_ms',
             'error_message',
             'events',
+            'failure',
             'from',
             'headers',
             'html',
@@ -200,6 +206,7 @@ final readonly class Email
             delivery_time_ms: array_key_exists('delivery_time_ms', $wire) && $wire['delivery_time_ms'] !== null ? \Epostix\Wire::asInt($wire['delivery_time_ms']) : null,
             error_message: array_key_exists('error_message', $wire) && $wire['error_message'] !== null ? \Epostix\Wire::asString($wire['error_message']) : null,
             events: array_key_exists('events', $wire) && $wire['events'] !== null ? array_map(static fn ($item) => \Epostix\Generated\EmailEvent::fromWire(\Epostix\Wire::asArray($item)), \Epostix\Wire::asList($wire['events'])) : null,
+            failure: array_key_exists('failure', $wire) && $wire['failure'] !== null ? \Epostix\Generated\EmailFailure::fromWire(\Epostix\Wire::asArray($wire['failure'])) : null,
             from: array_key_exists('from', $wire) && $wire['from'] !== null ? \Epostix\Wire::asString($wire['from']) : null,
             headers: array_key_exists('headers', $wire) && $wire['headers'] !== null ? array_map(static fn ($item) => \Epostix\Wire::asString($item), \Epostix\Wire::asArray($wire['headers'])) : null,
             html: array_key_exists('html', $wire) && $wire['html'] !== null ? \Epostix\Wire::asString($wire['html']) : null,
