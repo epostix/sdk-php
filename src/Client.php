@@ -9,7 +9,7 @@ use Http\Discovery\Psr18ClientDiscovery;
 
 final class Client
 {
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.2.0';
     public const PRODUCTION_BASE_URL = 'https://api.epostix.com/v1';
     public const STAGING_BASE_URL = 'https://api.staging.epostix.com/v1';
     public const SANDBOX_DOMAIN = 'epostix.dev';
