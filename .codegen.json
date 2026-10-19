@@ -1,10 +1,10 @@
 {
   "generator": "epostix-codegen",
   "spec": {
-    "raw_sha256": "87581befc8459e02517da9c8d61cb2d95bc144cfd0984fc0cd8876eff451e306",
-    "contract_sha256": "a0fe15cc334d2cdfbb0d0073ca9d77a6598ff241d76ce466334484fe3d9a364b"
+    "raw_sha256": "d346966c5567d37d13224318d2128bd44e0b2db7d71c683c320a25e9f4eaf767",
+    "contract_sha256": "7ec82058bbdc739b30ee0c1cf534c27cb02c2c286def10b2f9ff1d93a735a512"
   },
-  "ir_sha256": "ab847957ef9f10e83d1122d30dc6cf89798c3c5fb5f725fe4461e810b9d98a06",
+  "ir_sha256": "9fe686064b38762e15520df5526bd774659e57114f8fe6dc816fa725da7f59c7",
   "files": {
     "src/Generated/AnalyticsBucket.php": "43406de4b4941aff348a73da2cace46a5b544f2fdb65376fc3f6f88d682453b5",
     "src/Generated/AnalyticsCounts.php": "3bc097f2f3b24d36650129563511d087e8631cd6ec27430c7073345b6e168ab0",
@@ -27,7 +27,11 @@
     "src/Generated/AttachmentContentDisposition.php": "feaabf2e6d3efd321a50b1a4efbcdf9c197b996d4fdac3941998ff7a551a779f",
     "src/Generated/AttachmentResponse.php": "2082d3d1f8c1c8ac17a634dc9faf901d53835c7916b0be3ddb1cc966afc62a1d",
     "src/Generated/AttachmentUpload.php": "6f7d9415b3628ca4559701d19d8d7584de30b4691aea2beb17f3f2c43a84e640",
-    "src/Generated/BounceHistoryEntry.php": "335c9a9b3b2fc95a12851aa00dec3ee2d0edb2312dc9e6e6dfb613458980e84f",
+    "src/Generated/BounceFault.php": "ed2258d31592a90f9fb0673240412d582281828737266ae5d69ffe1d3f2a80df",
+    "src/Generated/BounceHistoryEntry.php": "605277ebea07a7febe1f9b26a47833106a635bda1a8ce99177af35c53a6e8f65",
+    "src/Generated/BounceHistoryEntryKind.php": "81115bca623c52ae9be01ac77a2363855360ee836b08e54c867d1d6cde87cf4f",
+    "src/Generated/BounceReason.php": "324c5a575fc4012667b6ff3da03503e17a9df3bdc267c7f5ca155281fe646f76",
+    "src/Generated/BounceSource.php": "dda782b7531e1c3513ce45a787977a8aa4882071e7b046fc32db498e2ed4ef74",
     "src/Generated/Broadcast.php": "74477664f861fa9cfa86e5c83e2be3ace56b8abe9de5e851ce7b4e2831a5a0ef",
     "src/Generated/BroadcastCreate.php": "3fbb62fb13dcfb543a8574933f4881d5f48c6af9bcb72a603bfb0f96856b7c93",
     "src/Generated/BroadcastListResponse.php": "2433538f83aab68e5a602b9bc8e8b7bc0e3d914522c8ede5f18cc6714e127f9f",
