@@ -1,10 +1,10 @@
 {
   "generator": "epostix-codegen",
   "spec": {
-    "raw_sha256": "54379af3745df1d6ff6e25c0a00105eefcc7887a70aaf39db0998e3ffce4a8a7",
-    "contract_sha256": "8bf52ce46c813c19a334353438be0aa57e581a6b4a81fa6c03ccb6c8c36d47e0"
+    "raw_sha256": "e7ef8af9b3797cc5b68b5dcc90f9517022db621142c784bd1df5a3421cb2f6ad",
+    "contract_sha256": "3bb4dd18b2785d2642ff6116344c3d71b3a404b12e216c4a169d92e674a91415"
   },
-  "ir_sha256": "b6ce8bbe98f47fad49e3c929de5d8094da77a2144ec228074cbb5dc87fcb1193",
+  "ir_sha256": "31f1e7f637a7eee8bd9f993ca51ebfdda22095975cd07a367d1fc029542c27a2",
   "files": {
     "src/Generated/AnalyticsBucket.php": "43406de4b4941aff348a73da2cace46a5b544f2fdb65376fc3f6f88d682453b5",
     "src/Generated/AnalyticsCounts.php": "3bc097f2f3b24d36650129563511d087e8631cd6ec27430c7073345b6e168ab0",
@@ -103,6 +103,7 @@
     "src/Generated/ListEventsEventType.php": "05b150a289c97b7b515ae44d8789b71e8a5ef73b0b7bb368a6e8cb22381745f6",
     "src/Generated/ListSuppressionsReason.php": "c4bc3ec9f6ff09b4ed215df0bc4d03e4c4f8fc8035a3aa2eb86305f10a06edc6",
     "src/Generated/ListWebhookLogsStatus.php": "67a15cdddbbdf2b505e1d648c24c673b6c7174c336c0408f5212f76ddfa65b02",
+    "src/Generated/MailboxProvider.php": "7bde5d99513546030234b471f655f96d3b5bcd182059fe67ac0a289932d2beb2",
     "src/Generated/PermissionScope.php": "189d266f1d0970e8a215de12bc7509dba66e3f759b334196664449ee88fb8009",
     "src/Generated/PreflightOptions.php": "84bc2f701c6b739b9c065758b12a0fe98505d006296fa48210c7b8427e77d615",
     "src/Generated/PreflightResult.php": "dcb81c47cb31747d65100eec30183840894369f576492a07f6837d6453cea963",
