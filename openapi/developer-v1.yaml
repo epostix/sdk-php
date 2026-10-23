@@ -3022,7 +3022,7 @@ paths:
     delete:
       tags: [Suppressions]
       summary: Remove manual, cleaned or workspace unsubscribe suppression
-      description: Remove a manual suppression, one added by an audience clean, or an unsubscribe your workspace recorded for a contact. Removing a cleaned or unsubscribe suppression resubscribes the contact. An unsubscribe made by the recipient and system suppressions (bounces, complaints) cannot be removed via API.
+      description: Remove a manual suppression, one added by an audience clean, or an unsubscribe your workspace recorded for a contact. An address can carry more than one of these; a removal takes off the one listed for it, and the address stays suppressed until none remain. Removing the last cleaned or unsubscribe suppression resubscribes the contact. An unsubscribe made by the recipient and system suppressions (bounces, complaints) cannot be removed via API.
       operationId: deleteSuppression
       security:
         - bearerAuth: []
@@ -4117,8 +4117,8 @@ components:
             - **sent**: nothing more
             - **delivered**: attempt, mx_hostname, smtp_response
             - **bounced**: fault, reason, permanent, source, provider, smtp_code, enhanced_status_code, response.
-              fault is recipient, sender or unknown (see BounceFault), reason is one of BounceReason, source is smtp or ndr
-              (see BounceSource), provider is one of MailboxProvider. provider, smtp_code, enhanced_status_code and response
+              fault is recipient, sender or unknown (see BounceFault), reason is one of BounceReason, source is smtp, ndr or
+              suppression_list (see BounceSource), provider is one of MailboxProvider. provider, smtp_code, enhanced_status_code and response
               are present when known.
               Failures on the Epostix side never produce a bounced event.
             - **failed/delayed**: reason (a readable description), attempt, mx_hostname, next_attempt_at (delayed only), and
@@ -5851,7 +5851,8 @@ components:
       enum: [recipient, sender, unknown]
       description: >
         Who the receiving system held responsible. recipient means the address itself cannot take mail,
-        sender means the message or the sending reputation was refused, unknown means the reply did not say.
+        sender means the message or the sending reputation was refused, unknown means the reply did not say
+        or the recipient's mail servers could not be reached.
         Failures on the Epostix side never appear as a bounce.
     BounceReason:
       type: string
@@ -5867,14 +5868,21 @@ components:
         - content
         - authentication
         - sender_address
+        - domain_unreachable
         - unclassified
       description: >
         Why the message was refused. mailbox_unknown, mailbox_full, mailbox_disabled and domain_unroutable come
-        with fault recipient; unclassified comes with fault unknown; every other reason comes with fault sender.
+        with fault recipient; domain_unreachable and unclassified come with fault unknown; every other reason comes
+        with fault sender. domain_unreachable means the recipient's mail servers could not be reached until delivery
+        was given up; it suppresses the address progressively but does not count toward your bounce rate.
     BounceSource:
       type: string
-      enum: [smtp, ndr]
-      description: smtp is the receiving server's reply during delivery, ndr is a bounce message received after the server accepted the email.
+      enum: [smtp, ndr, suppression_list]
+      description: >
+        smtp is the receiving server's reply during delivery, ndr is a bounce message received after the server
+        accepted the email, and suppression_list means the email was not sent because the address hard bounced on
+        Epostix within the last 14 days. A suppression_list bounce counts toward your bounce rate and suppresses the
+        address in your workspace.
     MailboxProvider:
       type: string
       enum:

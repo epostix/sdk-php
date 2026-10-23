@@ -19,6 +19,7 @@ final class BounceReason
     public const CONTENT = 'content';
     public const AUTHENTICATION = 'authentication';
     public const SENDER_ADDRESS = 'sender_address';
+    public const DOMAIN_UNREACHABLE = 'domain_unreachable';
     public const UNCLASSIFIED = 'unclassified';
 
     public const VALUES = [
@@ -33,6 +34,7 @@ final class BounceReason
         'content',
         'authentication',
         'sender_address',
+        'domain_unreachable',
         'unclassified',
     ];
 

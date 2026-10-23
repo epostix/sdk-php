@@ -10,10 +10,12 @@ final class BounceSource
 {
     public const SMTP = 'smtp';
     public const NDR = 'ndr';
+    public const SUPPRESSION_LIST = 'suppression_list';
 
     public const VALUES = [
         'smtp',
         'ndr',
+        'suppression_list',
     ];
 
     public static function isKnown(string $value): bool

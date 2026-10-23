@@ -1,10 +1,10 @@
 {
   "generator": "epostix-codegen",
   "spec": {
-    "raw_sha256": "e7ef8af9b3797cc5b68b5dcc90f9517022db621142c784bd1df5a3421cb2f6ad",
-    "contract_sha256": "3bb4dd18b2785d2642ff6116344c3d71b3a404b12e216c4a169d92e674a91415"
+    "raw_sha256": "60c234894bbaab97fa907c882351f35e25d3010c4ce20943692c7a91dafb862e",
+    "contract_sha256": "9511016947844dfeb974093122c68d0a6aa1d0064595c84c1e16861d809ba2f4"
   },
-  "ir_sha256": "31f1e7f637a7eee8bd9f993ca51ebfdda22095975cd07a367d1fc029542c27a2",
+  "ir_sha256": "7745a32bed2bec87c29becb885eb3de52912b816f704ae9b0a431e6c61e8647b",
   "files": {
     "src/Generated/AnalyticsBucket.php": "43406de4b4941aff348a73da2cace46a5b544f2fdb65376fc3f6f88d682453b5",
     "src/Generated/AnalyticsCounts.php": "3bc097f2f3b24d36650129563511d087e8631cd6ec27430c7073345b6e168ab0",
@@ -30,8 +30,8 @@
     "src/Generated/BounceFault.php": "ed2258d31592a90f9fb0673240412d582281828737266ae5d69ffe1d3f2a80df",
     "src/Generated/BounceHistoryEntry.php": "605277ebea07a7febe1f9b26a47833106a635bda1a8ce99177af35c53a6e8f65",
     "src/Generated/BounceHistoryEntryKind.php": "81115bca623c52ae9be01ac77a2363855360ee836b08e54c867d1d6cde87cf4f",
-    "src/Generated/BounceReason.php": "324c5a575fc4012667b6ff3da03503e17a9df3bdc267c7f5ca155281fe646f76",
-    "src/Generated/BounceSource.php": "dda782b7531e1c3513ce45a787977a8aa4882071e7b046fc32db498e2ed4ef74",
+    "src/Generated/BounceReason.php": "d0fa480fc734ea9a707e5f8a7d09c37cd49ed1d9e863b331bdc700931473169b",
+    "src/Generated/BounceSource.php": "de8660d4e1e9df1d4c7b5596c4ef69fd065b0e722e28be56efc4a96067454e1a",
     "src/Generated/Broadcast.php": "74477664f861fa9cfa86e5c83e2be3ace56b8abe9de5e851ce7b4e2831a5a0ef",
     "src/Generated/BroadcastCreate.php": "3fbb62fb13dcfb543a8574933f4881d5f48c6af9bcb72a603bfb0f96856b7c93",
     "src/Generated/BroadcastListResponse.php": "2433538f83aab68e5a602b9bc8e8b7bc0e3d914522c8ede5f18cc6714e127f9f",
